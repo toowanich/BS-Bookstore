@@ -1,0 +1,6 @@
+$_SESSION['logstat'] ==> show string "log in" or "log out"
+$_SESSION['pcunmatch'] ==> check if password == confirm for register.php
+$_SESSION['lastpage'] ==> keep last page visit
+$_SESSION['logout'] ==> check if the user click the 'logout' or 'login' button (click 'logout' = 1)
+$_SESSION['cart'] ==> not yet used
+

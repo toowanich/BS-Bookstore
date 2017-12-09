@@ -1,0 +1,12 @@
+button #ext {
+  max-width: 0;
+  -webkit-transition: max-width .3s;
+  transition: max-width .3s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+button:hover #ext {
+  max-width: 9rem;
+}
