@@ -576,7 +576,7 @@
     <div id="edit"  class="text-center">
         <h1>Deleted Books</h1>
     </div><?php
-    if($resulto){
+    if($resulto->num_rows > 0){
 ?>
         <br>
         <form id="myform" action="product_edit.php" method="POST">
