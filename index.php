@@ -148,7 +148,7 @@
   $loopNo = 0;
   $rowcount = 0;
   $goto = 'n'.$rowcount;
-  $q = 'SELECT * FROM product WHERE DATEDIFF(CURRENT_DATE(), product.add_date) <= 14 ORDER BY add_date DESC LIMIT 3';
+  $q = 'SELECT * FROM product ORDER BY add_date DESC LIMIT 3';
   $result = $mysqli->query($q);
   $resultforcheck = $mysqli->query($q);;
   $check=$resultforcheck->fetch_array();
