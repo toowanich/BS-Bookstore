@@ -107,17 +107,19 @@
         $result = $mysqli->query($qr);
         while($row=$result->fetch_array()){
             if($row['id']==$_POST['retreive']){
+                $pname = $mysqli->real_escape_string($row['product_name']);
+                $desc = $mysqli->real_escape_string($row['description']);
                 $q = 'INSERT INTO product(product_name,product_price,product_tag,quantity,product_pic,product_discount,add_date,author_id,publisher_id,description)
-                      VALUES("'.$row['product_name'].'"
-                      ,"'.$row['product_price'].'"
+                      VALUES("'.$pname.'"
+                      ,'.$row['product_price'].'
                       ,"'.$row['product_tag'].'"
-                      ,"'.$row['quantity'].'"
+                      ,'.$row['quantity'].'
                       ,"'.$row['product_pic'].'"
-                      ,"0"
-                      ,NOW())
-                      ,"'.$row['author_id'].'"
-                      ,"'.$row['publisher_id'].'"
-                      ,"'.$row['description'].'";';
+                      ,0
+                      ,NOW()
+                      ,'.$row['author_id'].'
+                      ,'.$row['publisher_id'].'
+                      ,"'.$desc.'");';
                 $result=$mysqli->query($q);
                 $q = "DELETE FROM product_delete WHERE id = ".$_POST['retreive'].";";
                 $result=$mysqli->query($q);

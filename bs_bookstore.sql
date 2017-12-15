@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bg_store`
+-- Database: `bs_bookstore`
 --
 
 DELIMITER $$
@@ -86,11 +86,11 @@ BEGIN
     DECLARE q INT;
     DECLARE p INT;
 
-    SELECT SUM(cartdetail.quantity) INTO q FROM cartdetail 
+    SELECT SUM(cartdetail.quantity) INTO q FROM cartdetail
     WHERE cartdetail.cart_id = cartid;
-    SELECT SUM(cartdetail.total_price) INTO p from cartdetail 
+    SELECT SUM(cartdetail.total_price) INTO p from cartdetail
     WHERE cartdetail.cart_id = cartid;
-    
+
     UPDATE cart SET cart.quantity = q WHERE cart.cart_id=cartid;
     UPDATE cart SET cart.total_amount = p WHERE cart.cart_id=cartid;
 
