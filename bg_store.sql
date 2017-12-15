@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2017 at 04:30 PM
+-- Generation Time: Dec 15, 2017 at 04:53 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -433,15 +433,14 @@ CREATE TABLE `product_tag` (
 --
 
 INSERT INTO `product_tag` (`id`, `tag_name`) VALUES
-(1, 'Bluff'),
-(2, 'Party'),
-(3, 'Deck building'),
-(4, 'Case solving'),
-(5, 'Expansion'),
-(6, 'Strategic'),
-(7, 'Thematic'),
-(8, 'RPG'),
-(9, 'Cooperation');
+(1, 'Adventure'),
+(2, 'Thriller'),
+(3, 'Horror'),
+(4, 'Children\'s'),
+(5, 'Comedy'),
+(6, 'Fantasy'),
+(7, 'Science Fiction'),
+(8, 'Action');
 
 --
 -- Triggers `product_tag`
@@ -660,7 +659,7 @@ ALTER TABLE `product_delete`
 -- AUTO_INCREMENT for table `product_tag`
 --
 ALTER TABLE `product_tag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `publisher`
 --
