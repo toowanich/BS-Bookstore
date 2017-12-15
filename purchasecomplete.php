@@ -183,7 +183,7 @@ $_SESSION['cartquantity'] = 0;
               </form>
               <a href="javascript:{}" onclick="document.getElementById('toorderdetail').submit();">Upload your payment receipt</a>
               <br><br>
-              <a href="main.php">Return to Home</a>
+              <a href="index.php">Return to Home</a>
               <br>
             <?php
           }

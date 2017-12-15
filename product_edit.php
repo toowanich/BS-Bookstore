@@ -108,7 +108,7 @@
         }
         header("Location:product_list.php#deleted");
     }else{
-        header("Location:main.php");
+        header("Location:index.php");
     }
 
 ?>

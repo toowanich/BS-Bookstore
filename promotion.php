@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
   session_start();
-  // $_SESSION['lastpage']="main.php";
+  // $_SESSION['lastpage']="index.php";
   $_SESSION['currentpage']='promotion';
   require_once("connect.php");
   require_once("navbar.php");

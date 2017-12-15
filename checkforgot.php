@@ -27,6 +27,6 @@
 
         header("Location:forgotpassword.php");
     }else{
-        header("Location:main.php");
+        header("Location:index.php");
     }
 ?>
