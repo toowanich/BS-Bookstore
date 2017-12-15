@@ -53,7 +53,7 @@ function show_navbar(){
       <ul class="nav navbar-nav ">
         <li>
           <span class="navbar-brand unselectable">
-            &nbsp;&nbsp;BG Store</a>
+            &nbsp;&nbsp;Bs Bookstore</a>
           </span>
         </li>
         <li <?php  if($_SESSION['currentpage']=='main') {echo "class='active'";} ?>
@@ -124,8 +124,8 @@ function show_jumbotron(){
 ?>
   <div class="jumbotron" style="box-shadow:8px 0px 15px #9B9B9B">
     <div class="container text-center">
-      <h1>BG Store</h1>
-      <p>Board Games for You</p>
+      <h1>BS Bookstore</h1>
+      <p>Books for You</p>
     </div>
   </div>
 <?php } ?>
