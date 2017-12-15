@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<?php session_start(); ?>
-<?php
+<?php session_start(); 
     // session_destroy();
     $_SESSION['currentpage']='contact';
     $_SESSION['cartquantity']=0;
@@ -68,8 +66,8 @@
       <div class="col-sm-3 text-left">
         <h3>Contact us</h3>
         <p><b><img src="img/2013-08-26_09-38-25__Phone_iOS7_App_Icon_Rounded.png" style="width:25px;"></b> 081-2345678</p>
-          <p><b><img src="img/facebook.png" style="width:25px;"></b> BG Store</p>
-          <p><b><img src="img/LINE_Icon.png" style="width:25px;"></b> BGStore</p>
+          <p><b><img src="img/facebook.png" style="width:25px;"></b> BS Store</p>
+          <p><b><img src="img/LINE_Icon.png" style="width:25px;"></b> BSStore</p>
       </div>
       <div class="col-sm-3 text-left">
         <h3>Payment method</h3>
@@ -81,7 +79,7 @@
     </div>
   </div>
 <footer class="container-fluid text-center">
-  <p>BG Store</p>
+  <p>BS Store</p>
 </footer>
 
 </body>
