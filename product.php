@@ -337,7 +337,7 @@ elseif (isset($_GET['keywordtype'])) {
   $qrs = "SELECT * FROM product WHERE product_tag like '%$keyword%' ORDER BY product_name ASC LIMIT 12 OFFSET ".$offset;
   // echo $keyword.' games';?>
   <div id="search" class="text-left panel-heading" style="vertical-align:middle;">
-    <h2 style="vertical-align:middle;color:black;display:inline-block;"><?= $keyword.' games'?></h2>
+    <h2 style="vertical-align:middle;color:black;display:inline-block;"><?= $keyword.' books'?></h2>
   </div>
   <?php
 }
