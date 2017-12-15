@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2017 at 04:53 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Generation Time: Dec 15, 2017 at 06:46 PM
+-- Server version: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -350,7 +350,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_tag`, `quantity`, `product_pic`, `product_discount`, `add_date`, `description`, `author_id`, `publisher_id`) VALUES
-(1, 'Stolen Prey', '242.00', 'Adventure', 55, 'w124.jpg', 0, '2017-11-26 02:03:09', 'Stolen Prey\'s Desctiption', 1, 1),
+(1, 'Stolen Prey', '242.00', 'Adventure', 55, 'w124.jpg', 0, '2017-11-26 02:03:09', 'Stolen Prey\'s Desctiption', 2, 2),
 (2, 'Road to Grace', '230.00', 'Thriller', 77, 'w124(1).jpg', 0, '2017-11-18 00:00:00', 'Road to Grace\'s Desctiption', 2, 2),
 (3, 'Home', '345.00', 'Horror', 22, 'w124(2).jpg', 0, '2017-11-17 00:00:00', 'Home\'s Desctiption', 3, 3),
 (4, 'The Witness', '304.00', 'Children\'s', 12, 'w124(3).jpg', 0, '2017-11-17 00:00:00', 'The Witness\'s Desctiption', 4, 4),
@@ -388,8 +388,19 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_t
 (36, 'Divergent', '272.00', 'Children\'s', 78, 'w125(10).jpg', 0, '0000-00-00 00:00:00', 'Divergent\'s Desctiption', 36, 1),
 (37, 'The Lost Hero ', '317.00', 'Comedy', 89, 'w125(11).jpg', 0, '0000-00-00 00:00:00', 'The Lost Hero \'s Desctiption', 37, 2),
 (38, 'Theodore Boone: The Abduction', '332.00', 'Fantasy', 100, 'w125(12).jpg', 0, '0000-00-00 00:00:00', 'Theodore Boone: The Abduction\'s Desctiption', 38, 3),
-(39, 'Chomp', '344.00', 'Science Fiction', 1, 'w125(13).jpg', 0, '0000-00-00 00:00:00', 'Chomp\'s Desctiption', 39, 4),
-(40, 'Miss Peregrine\'s Home for Peculiar Children', '201.00', 'Action', 19, 'w125(14).jpg', 0, '0000-00-00 00:00:00', 'Miss Peregrine\'s Home for Peculiar Children\'s Desctiption', 40, 5);
+(39, 'Chomp', '344.00', 'Science Fiction', 1, 'w125(13).jpg', 0, '0000-00-00 00:00:00', 'Chomp\'s Desctiption', 39, 4);
+
+--
+-- Triggers `product`
+--
+DELIMITER $$
+CREATE TRIGGER `onproductdeleteAddtoproduct_delete` BEFORE DELETE ON `product` FOR EACH ROW BEGIN
+
+INSERT INTO product_delete(delete_date,product_id,product_name,product_price,product_tag,quantity,product_pic,product_discount,author_id,publisher_id,description) VALUES(NOW(),old.product_id,old.product_name,old.product_price,old.product_tag,old.quantity,old.product_pic,old.product_discount,old.author_id,old.publisher_id,old.description);
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -399,6 +410,8 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_t
 
 CREATE TABLE `product_delete` (
   `id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `publisher_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_name` varchar(50) NOT NULL,
   `product_price` decimal(7,2) NOT NULL,
@@ -406,16 +419,9 @@ CREATE TABLE `product_delete` (
   `quantity` int(11) NOT NULL,
   `product_pic` varchar(50) NOT NULL,
   `product_discount` int(11) NOT NULL,
+  `description` varchar(3500) NOT NULL,
   `delete_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `product_delete`
---
-
-INSERT INTO `product_delete` (`id`, `product_id`, `product_name`, `product_price`, `product_tag`, `quantity`, `product_pic`, `product_discount`, `delete_date`) VALUES
-(2, 31, 'aaaaaaaaaa', '50.00', 'Bluff', 2, 'aaaaaaaaaapayment-receipt.jpg', 0, '2017-11-29 01:43:50'),
-(3, 32, 'g', '100.00', 'g', 123, 'g45noimg.png', 10, '2017-11-29 02:17:45');
 
 -- --------------------------------------------------------
 
@@ -436,7 +442,7 @@ INSERT INTO `product_tag` (`id`, `tag_name`) VALUES
 (1, 'Adventure'),
 (2, 'Thriller'),
 (3, 'Horror'),
-(4, 'Children\'s'),
+(4, 'Children'),
 (5, 'Comedy'),
 (6, 'Fantasy'),
 (7, 'Science Fiction'),
@@ -635,46 +641,55 @@ ALTER TABLE `usertype`
 --
 ALTER TABLE `address`
   MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `author`
 --
 ALTER TABLE `author`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
 --
 -- AUTO_INCREMENT for table `orderheader`
 --
 ALTER TABLE `orderheader`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
 --
 -- AUTO_INCREMENT for table `product_delete`
 --
 ALTER TABLE `product_delete`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `product_tag`
 --
 ALTER TABLE `product_tag`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT for table `publisher`
 --
 ALTER TABLE `publisher`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `USER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `usertype`
 --
 ALTER TABLE `usertype`
-  MODIFY `TYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
+  MODIFY `TYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

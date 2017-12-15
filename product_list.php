@@ -341,7 +341,9 @@
 
 <!-- ========================================= product list ================================== -->
 <?php
-    $q = 'SELECT * FROM product ORDER BY product_id ASC';
+    $q = 'SELECT p.product_id,p.product_name,p.product_price,p.product_tag,quantity,p.product_pic,p.product_discount,add_date,description,author_id,publisher_id,a.name as aname,pu.name as puname
+          FROM product p JOIN author a, publisher pu
+          WHERE p.author_id = a.id AND p.publisher_id = pu.id ORDER BY product_id ASC';
     $result = $mysqli->query($q);
     $qc = 'SELECT * FROM product_delete ORDER BY delete_date ASC';
     $results = $mysqli->query($q);?>
@@ -352,9 +354,11 @@
 ?>
         <br>
         <form id="myform" action="product_edit.php" method="POST">
-            <table align="center" class="table table-hover center" style="width:94%;">
+            <table align="center" class="table table-hover center" style="width:98%;">
                 <tr class="info">
                     <th class="text-center" >ID</th>
+                    <th class="text-center" >Author</th>
+                    <th class="text-center" >Publisher</th>
                     <th class="text-center" colspan="2">Product</th>
                     <th class="text-center" >Price</th>
                     <th class="text-center" >%Discount</th>
@@ -382,6 +386,38 @@
                                 <?=$row['product_id']?>
                                 <input type="hidden" name="id" value="<?=$row['product_id']?>">
                             </td>
+                            <!-- =================== author =================== -->
+                            <td class="text-center" style="width:11%;vertical-align:middle;">
+                                <?php
+                                  $qr = 'SELECT * FROM author';
+                                  $resultss = $mysqli->query($qr);
+                                ?>
+                                <select class="form-control" from="myform" name="author">
+                                  <?php
+                                  while($roww = $resultss->fetch_array()){ ?>
+                                      <option value="<?=$roww['id']?>"
+                                          <?php if($row['aname'] == $roww['name']){echo "selected";} ?>
+                                      ><?=$roww['name']?></option>
+                                      <?php
+                                  } ?>
+                                </select>
+                            </td>
+                            <!-- =================== publisher =================== -->
+                            <td class="text-center" style="width:9%;vertical-align:middle;">
+                                <?php
+                                  $qr = 'SELECT * FROM publisher';
+                                  $resultss = $mysqli->query($qr);
+                                ?>
+                                <select class="form-control" from="myform" name="pub">
+                                  <?php
+                                  while($roww = $resultss->fetch_array()){ ?>
+                                      <option value="<?=$roww['id']?>"
+                                          <?php if($row['puname'] == $roww['name']){echo "selected";} ?>
+                                      ><?=$roww['name']?></option>
+                                      <?php
+                                  } ?>
+                                </select>
+                            </td>
                             <!-- =================== img =================== -->
                             <td class="text-center" style="vertical-align:middle;">
                                 <img src="img/<?=$row['product_pic']?>" style="height:40px;">
@@ -391,7 +427,7 @@
                                 <input class="text-left form-control" type="text" style="width:100%;" name="name" value="<?= $row['product_name']?>">
                             </td>
                             <!-- =================== price =================== -->
-                            <td class="text-center" style="vertical-align:middle;width:6%;">
+                            <td class="text-center" style="vertical-align:middle;width:4%;">
                                 <input class="text-center form-control" type="text" style="width:100%;" name="price" value="<?= floatval($row['product_price'])?>">
                             </td>
                             <!-- =================== discount =================== -->
@@ -407,15 +443,27 @@
                                 <input class="text-center form-control" type="text" style="width:100%;" name="quantity" value="<?= $row['quantity']?>">
                             </td>
                             <!-- =================== tag =================== -->
-                            <td class="text-left" style="vertical-align:middle;">
-                                <input class="text-left form-control" type="text" style="width:100%;" name="tag" value="<?= $row['product_tag']?>">
+                            <td class="text-center" style="width:9%;vertical-align:middle;">
+                                <?php
+                                  $qr = 'SELECT * FROM product_tag';
+                                  $resultss = $mysqli->query($qr);
+                                ?>
+                                <select class="form-control" from="myform" name="tag">
+                                  <?php
+                                  while($roww = $resultss->fetch_array()){ ?>
+                                      <option value="<?=$roww['tag_name']?>"
+                                          <?php if($row['product_tag'] == $roww['tag_name']){echo "selected";} ?>
+                                      ><?=$roww['tag_name']?></option>
+                                      <?php
+                                  } ?>
+                                </select>
                             </td>
                             <!-- =================== description =================== -->
-                            <td class="text-left" style="vertical-align:middle;width:17%;">
+                            <td class="text-left" style="vertical-align:middle;width:13%;">
                                 <textarea class="text-left form-control" type="text" form="myform" style="width:100%;resize:vertical;" name="desc"><?= $row['description']?></textarea>
                             </td>
                             <!-- =================== pic file name =================== -->
-                            <td class="text-left" style="vertical-align:middle;">
+                            <td class="text-left" style="vertical-align:middle;width:8%;">
                                 <input class="text-left form-control" type="text" style="width:100%;" name="pic" value="<?=$row['product_pic']?>">
                             </td>
                             <!-- =================== save =================== -->
@@ -435,6 +483,14 @@
                       <td class="text-center" style="vertical-align:middle;">
                           <?=$row['product_id']?>
                       </td>
+                      <!-- =================== author =================== -->
+                      <td class="text-center" style="vertical-align:middle;width:9%;">
+                          <?=$row['aname']?>
+                      </td>
+                      <!-- =================== publisher =================== -->
+                      <td class="text-center" style="vertical-align:middle;width:9%;">
+                          <?=$row['puname']?>
+                      </td>
                       <!-- =================== img =================== -->
                       <td class="text-center" style="vertical-align:middle;">
                           <img src="img/<?=$row['product_pic']?>" style="height:40px;">
@@ -444,7 +500,7 @@
                           <?= $row['product_name']?>
                       </td>
                       <!-- =================== price =================== -->
-                      <td class="text-center" style="vertical-align:middle;width:6%;">
+                      <td class="text-center" style="vertical-align:middle;width:4%;">
                           <?= number_format($row['product_price'])?>
                       </td>
                       <!-- =================== discount =================== -->
@@ -462,15 +518,15 @@
                         else{echo $row['quantity'];} ?>
                       </td>
                       <!-- =================== tag =================== -->
-                      <td class="text-left" style="vertical-align:middle;">
+                      <td class="text-left" style="vertical-align:middle;width:8%;">
                           <?= $row['product_tag']?>
                       </td>
                       <!-- =================== description =================== -->
-                      <td class="text-left" style="vertical-align:middle;width:17%;">
+                      <td class="text-left" style="vertical-align:middle;width:13%;">
                           <textarea readonly class="text-left form-control" type="text" style="width:100%;resize:vertical;" name="des" ><?= $row['description']?></textarea>
                       </td>
                       <!-- =================== pic file name =================== -->
-                      <td class="text-left" style="vertical-align:middle;">
+                      <td class="text-left" style="vertical-align:middle;width:8%;">
                           <?=$row['product_pic']?>
                       </td>
                       <!-- =================== edit =================== -->
@@ -513,25 +569,27 @@
 
 <!-- ================================== SHOW deleted products ============================ -->
 <?php
-    $q = 'SELECT * FROM product_delete ORDER BY delete_date ASC';
-    $resulto = $mysqli->query($q);
-    $qc = 'SELECT * FROM product_delete ORDER BY delete_date ASC';
-    $results = $mysqli->query($q);?>
+    $q = 'SELECT p.id,p.product_id,p.product_name,p.product_price,p.product_tag,quantity,p.product_pic,p.product_discount,delete_date,description,author_id,publisher_id,a.name as aname,pu.name as puname
+          FROM product_delete p JOIN author a, publisher pu
+          WHERE p.author_id = a.id AND p.publisher_id = pu.id ORDER BY delete_date DESC';
+    $resulto = $mysqli->query($q);?>
     <div id="edit"  class="text-center">
         <h1>Deleted Books</h1>
     </div><?php
-    if($check=$results->fetch_array()){
+    if($resulto){
 ?>
         <br>
         <form id="myform" action="product_edit.php" method="POST">
-            <table id="deleted" align="center" class="table table-hover center" style="width:94%;">
+            <table id="deleted" align="center" class="table table-hover center" style="width:98%;">
                 <tr class="info">
                     <th class="text-center" >ID</th>
                     <th class="text-center" >Date deleted</th>
                     <th class="text-center" >Product ID</th>
+                    <th class="text-center" >Author</th>
+                    <th class="text-center" >Publisher</th>
                     <th class="text-center" colspan="2">Product</th>
                     <th class="text-center" >Price</th>
-                    <!-- <th class="text-center" >%Discount</th> -->
+                    <th class="text-center" >Description</th>
                     <th class="text-center" >Quantity</th>
                     <th class="text-center" >Tag</th>
                     <th class="text-center" >Image File</th>
@@ -546,30 +604,37 @@
                           <?=$row['id']?>
                       </td>
                       <!-- =================== delete date =================== -->
-                      <td class="text-center" style="vertical-align:middle;">
+                      <td class="text-center" style="vertical-align:middle;width:8%;">
                           <?=$row['delete_date']?>
                       </td>
                       <!-- =================== product id =================== -->
                       <td class="text-center" style="vertical-align:middle;">
                           <?=$row['product_id']?>
                       </td>
+                      <!-- =================== author =================== -->
+                      <td class="text-center" style="vertical-align:middle;width:9%;">
+                          <?=$row['aname']?>
+                      </td>
+                      <!-- =================== publisher =================== -->
+                      <td class="text-center" style="vertical-align:middle;width:9%;">
+                          <?=$row['puname']?>
+                      </td>
                       <!-- =================== img =================== -->
                       <td class="text-center" style="vertical-align:middle;">
                           <img src="img/<?=$row['product_pic']?>" style="height:40px;">
                       </td>
                       <!-- =================== name =================== -->
-                      <td class="text-left" style="vertical-align:middle;width:28%;">
+                      <td class="text-left" style="vertical-align:middle;width:15%;">
                           <?= $row['product_name']?>
                       </td>
                       <!-- =================== price =================== -->
-                      <td class="text-center" style="vertical-align:middle;">
+                      <td class="text-center" style="vertical-align:middle;width:4%;">
                           <?= number_format($row['product_price'])?>
                       </td>
-                      <!-- =================== discount =================== -->
-                      <!-- <td class="text-center" style="vertical-align:middle;">
-                          <?php if($row['product_discount']!=0){echo "<span style='font-weight:bold;background-color:#B4D8B6;'>&nbsp;".$row['product_discount']."&nbsp;</span>";}
-                          else{echo $row['product_discount'];} ?>
-                      </td> -->
+                      <!-- =================== description =================== -->
+                      <td class="text-left" style="vertical-align:middle;width:15%;">
+                          <textarea readonly class="text-left form-control" type="text" style="width:100%;resize:vertical;" name="des" ><?= $row['description']?></textarea>
+                      </td>
                       <!-- =================== quantity =================== -->
                       <td class="text-center" style="vertical-align:middle;">
                         <?php if($row['quantity']==0){echo "<span style='font-weight:bold;background-color:#F0CACA;'>&nbsp;".$row['quantity']."&nbsp;</span>";}
@@ -580,7 +645,7 @@
                           <?= $row['product_tag']?>
                       </td>
                       <!-- =================== pic file name =================== -->
-                      <td class="text-left" style="vertical-align:middle;">
+                      <td class="text-left" style="vertical-align:middle;width:10%;">
                           <?=$row['product_pic']?>
                       </td>
                       <!-- =================== retreive =================== -->

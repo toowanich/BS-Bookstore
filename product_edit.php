@@ -85,6 +85,10 @@
         $desc = $mysqli->real_escape_string($_POST['desc']);
         $qr = "UPDATE product SET description = '".$desc."' WHERE product_id =".$_POST['id'].";";
         $update = $mysqli->query($qr);
+        $qr = "UPDATE product SET author_id = '".$_POST['author']."' WHERE product_id =".$_POST['id'].";";
+        $update = $mysqli->query($qr);
+        $qr = "UPDATE product SET publisher_id = '".$_POST['pub']."' WHERE product_id =".$_POST['id'].";";
+        $update = $mysqli->query($qr);
         header("Location:product_list.php#edit");
     }
     else if($_SESSION['usertype']==1 && isset($_POST['delete'])){
@@ -103,14 +107,17 @@
         $result = $mysqli->query($qr);
         while($row=$result->fetch_array()){
             if($row['id']==$_POST['retreive']){
-                $q = 'INSERT INTO product(product_name,product_price,product_tag,quantity,product_pic,product_discount,add_date)
+                $q = 'INSERT INTO product(product_name,product_price,product_tag,quantity,product_pic,product_discount,add_date,author_id,publisher_id,description)
                       VALUES("'.$row['product_name'].'"
                       ,"'.$row['product_price'].'"
                       ,"'.$row['product_tag'].'"
                       ,"'.$row['quantity'].'"
                       ,"'.$row['product_pic'].'"
                       ,"0"
-                      ,NOW());';
+                      ,NOW())
+                      ,"'.$row['author_id'].'"
+                      ,"'.$row['publisher_id'].'"
+                      ,"'.$row['description'].'";';
                 $result=$mysqli->query($q);
                 $q = "DELETE FROM product_delete WHERE id = ".$_POST['retreive'].";";
                 $result=$mysqli->query($q);
