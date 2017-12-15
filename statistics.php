@@ -125,7 +125,7 @@ function drawCrosshairs() {
           $q = $q.' Group by order_date';
           $result = $mysqli->query($q);
           if($result->num_rows == 0){
-            $q = 'SELECT order_date as o, count(*) as c FROM orderheader,orderdetail Group by order_date';
+            $q = 'SELECT order_date as o, count(*) as c FROM orderheader,orderdetail WHERE orderheader.order_id = orderdetail.order_id Group by order_date';
             $result = $mysqli->query($q);
             $trigger = 1;
           }
