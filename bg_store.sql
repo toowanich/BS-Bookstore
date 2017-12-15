@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2017 at 04:30 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Generation Time: Dec 15, 2017 at 05:33 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -152,7 +152,6 @@ INSERT INTO `author` (`id`, `name`) VALUES
 (9, 'W. Bruce Cameron'),
 (10, 'Craig Johnson'),
 (11, 'James Patterson'),
-(12, 'James Patterson'),
 (13, 'Adriana Trigiani'),
 (14, 'William Landay'),
 (15, 'Christopher Moore'),
@@ -361,7 +360,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_t
 (9, 'A Dog\'s Journey', '364.00', 'Adventure', 58, 'w124(8).jpg', 0, '2017-11-17 00:00:00', 'A Dog\'s Journey\'s Desctiption', 9, 4),
 (10, 'As the Crow Flies: A Walt Longmire Mystery', '289.00', 'Thriller', 35, 'w124(9).jpg', 0, '2017-11-17 00:00:00', 'As the Crow Flies: A Walt Longmire Mystery\'s Desctiption', 10, 5),
 (11, 'Guilty Wives', '356.00', 'Horror', 93, 'w124(10).jpg', 8, '2017-11-17 00:00:00', 'Guilty Wives\'s Desctiption', 11, 1),
-(12, '11th Hour', '313.00', 'Children\'s', 37, 'w124(11).jpg', 0, '2017-11-25 02:44:13', '11th Hour\'s Desctiption', 12, 2),
+(12, '11th Hour', '313.00', 'Children\'s', 37, 'w124(11).jpg', 0, '2017-11-25 02:44:13', '11th Hour\'s Desctiption', 11, 2),
 (13, 'The Shoemaker\'s Wife', '213.00', 'Comedy', 52, 'w124(12).jpg', 0, '2017-11-22 15:33:00', 'The Shoemaker\'s Wife\'s Desctiption', 13, 3),
 (14, 'Defending Jacob', '250.00', 'Fantasy', 6, 'w124(13).jpg', 0, '2017-11-25 00:50:20', 'Defending Jacob\'s Desctiption', 14, 4),
 (15, 'Sacre Bleu: A Comedy D\'Art', '376.00', 'Science Fiction', 1, 'w124(14).jpg', 0, '2017-11-25 02:32:54', 'Sacre Bleu: A Comedy D\'Art\'s Desctiption', 15, 5),
@@ -636,46 +635,55 @@ ALTER TABLE `usertype`
 --
 ALTER TABLE `address`
   MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `author`
 --
 ALTER TABLE `author`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
 --
 -- AUTO_INCREMENT for table `orderheader`
 --
 ALTER TABLE `orderheader`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
 --
 -- AUTO_INCREMENT for table `product_delete`
 --
 ALTER TABLE `product_delete`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `product_tag`
 --
 ALTER TABLE `product_tag`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `publisher`
 --
 ALTER TABLE `publisher`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `USER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `usertype`
 --
 ALTER TABLE `usertype`
-  MODIFY `TYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
+  MODIFY `TYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
