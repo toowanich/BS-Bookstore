@@ -4,22 +4,10 @@
     // $_SESSION['lastpage']='account';
     require_once('connect.php');
     require_once("navbar.php");
-    $_SESSION['lastpage']='user_list.php';
-    $_SESSION['currentpage']='account';
-
-    // ============================= UPDATE status ========================= -->
-    if(isset($_POST['paidid'])){
-      $qs = "UPDATE orderheader SET confirm_date=NOW(),order_status ='".$_POST['paid']."' WHERE order_id=".$_POST['paidid'];
-      $update = $mysqli->query($qs);
-      header("Location:".$_SESSION['lp']);
-    }
-
-    ////////////////////////////////////////////////////////////////// -->
-    $_SESSION['lp']='order_list.php';
   ?>
 <html lang="en">
 <head>
-  <title>BG Store - </title>
+  <title>BG Store - Statistics</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" -->
@@ -78,13 +66,46 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <?php show_navbar(); ?>
 </nav>
-<br><br><br<br><br><br><br><br><br><br><br><br>
+<br><br><br>
   <!-- /////////////////////////////////////////////////////////////////////////// -->
 
-
+  <center>
+    <h1>Statistics<h1>
+  <div class="text-center" style="width: 80%;">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <div id="chart_div"></div>
+  <hr>
+  <table align="center" class="table table-hover center row-add" style="width:98%;">
+    <form action ='statistics.php' method='get'>
+    <tr>
+    <td>
+      <select class="form-control" name="product">
+        <option value = 'a'>All</option>
+        <?php
+        $q = 'SELECT product_name,product_id FROM product';
+        $result = $mysqli->query($q);
+        while($row = $result->fetch_array()){ ?>
+            <option <?php
+            if(isset($_GET['product']) and $_GET['product'] == $row['product_id']){
+              echo 'selected';
+            }
+            ?>
+            value="<?=$row['product_id']?>"><?=$row['product_name']?></option>
+            <?php
+        } ?>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input class="btn-primary btn" style="margin-right:10px;display:inline-block;" type="submit"value="Filter">
 
+    </td>
+  </tr>
+
+</form>
+  </div>
+  </center>
 
 <script>
 google.charts.load('current', {packages: ['corechart', 'line']});
@@ -97,8 +118,17 @@ function drawCrosshairs() {
 
       data.addRows([
         <?php
-          $q = 'SELECT order_date as o, count(*) as c FROM orderheader Group by order_date';
+          $q = 'SELECT order_date as o, count(*) as c FROM orderheader,orderdetail WHERE orderheader.order_id = orderdetail.order_id';
+          if(isset($_GET['product']) and $_GET['product'] != 'a'){
+            $q = $q.' AND product_id = '.$_GET['product'];
+          }
+          $q = $q.' Group by order_date';
           $result = $mysqli->query($q);
+          if($result->num_rows == 0){
+            $q = 'SELECT order_date as o, count(*) as c FROM orderheader,orderdetail Group by order_date';
+            $result = $mysqli->query($q);
+            $trigger = 1;
+          }
           $count = 0;
           while($rows = $result -> fetch_array()){
             if($count != 0){
@@ -113,19 +143,41 @@ function drawCrosshairs() {
       ]);
 
       var options = {
-        chart.fontSize: '20',
+
+        fontSize: '20',
         chart: {
-          title: 'Total Sales',
-          subtitle: 'asdf'
+          title:<?php
+          if(isset($trigger)){
+            echo "'Total Sales'";
+          }elseif(isset($_GET['product']) and $_GET['product'] != 'a'){
+            echo '"Sales of ';
+            $q = 'SELECT product_name FROM product WHERE product_id = '.$_GET['product'];
+            $result = $mysqli->query($q);
+            $row = $result->fetch_array();
+            echo $row[0].'"';
+            ;
+          }else{
+            echo "'Total Sales'";
+          }
+
+          ?>
+
         },
 
         hAxis: {
-          title: 'Date'
+          title: 'Date',
+           textStyle : {
+          fontSize: '15'
+          }
         },
         vAxis: {
-          title: 'Sales'
+          title: 'Sales',
+          textStyle : {
+         fontSize: '15'
+         }
 
         },
+        legend: {position: 'none'}
         // colors: ['#a52714', '#097138']
 
       };
@@ -136,8 +188,5 @@ function drawCrosshairs() {
 
     }
 </script>
-<hr>
-
-
 </body>
 </html>
