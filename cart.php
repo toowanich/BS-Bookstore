@@ -137,6 +137,7 @@ require_once('connect.php');
                               $totalprice=0;
                               $totalquantity=0;
                               $totaldistinctproduct=0;?>
+                              <form id="normal" action="cart.php" method="POST">
                                 <?php
                               while($row=$query->fetch_array()){
                                   $subtotal=$_SESSION['cart'][$row['product_id']]['quantity']*($row['product_price']-($row['product_price']*$row['product_discount']/100));
@@ -148,17 +149,13 @@ require_once('connect.php');
                                   //$subdistinct=$_SESSION['cart']['product_id'];
                                   //$totaldistinctproduct+=;
                                   ?>
-                                  <form id="detail_form<?=$pid?>" target="_blank" action="product_details.php" method="get">
-                                    <input type="hidden" form="detail_form<?=$pid?>" name="pid" value="<?=$pid?>">
-                                  </form>
-                                  <form id="normal" action="cart.php" method="POST">
                                   <tr>
                                       <td class="text-center" style="width:100px;">
                                           <img src="img/<?= $row['product_pic'] ?>" style="height:60px;">
                                       </td>
                                       <td class="text-left" style="vertical-align:middle;">
-                                        <a href="javascript:{}" onclick="document.getElementById('detail_form<?=$pid?>').submit(); return false;">
-                                        <?php echo $row['product_name']; ?></a></td>
+                                        <?php echo $row['product_name']; ?>
+                                    </td>
                                       <td class="text-center" style="width:5%;vertical-align:middle;">
                                         <input class="text-center" type="number" style="width: 50px;" min="1" max="<?= $row['quantity']; ?>" name="quantity[<?= $row['product_id'] ?>]" value="<?= $_SESSION['cart'][$row['product_id']]['quantity'] ?>">
                                       </td>
