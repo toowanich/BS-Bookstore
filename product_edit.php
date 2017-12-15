@@ -54,10 +54,20 @@
             echo "12Copy/Upload Complete<br>";
           }
         // }
-
             header("Location:product_list.php");
         }
-
+    }
+    //======================= add author ============================
+    else if($_SESSION['usertype']==1 && isset($_POST['add_author'])){
+        $q = 'INSERT INTO author(name) VALUES("'.$_POST['authorname'].'");';
+        $result = $mysqli->query($q);
+        header("Location:product_list.php");
+    }
+    //======================= add publisher ============================
+    else if($_SESSION['usertype']==1 && isset($_POST['add_pub'])){
+        $q = 'INSERT INTO publisher(name) VALUES("'.$_POST['pubname'].'");';
+        $result = $mysqli->query($q);
+        header("Location:product_list.php");
     }
     else if($_SESSION['usertype']==1 && isset($_POST['update'])){
         $qr = "UPDATE product SET product_name = '".$_POST['name']."' WHERE product_id =".$_POST['id'].";";

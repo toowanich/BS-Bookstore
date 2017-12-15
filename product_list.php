@@ -115,26 +115,66 @@
 
 <!-- ============================== add product =============================== -->
 <div class="text-center">
-    <h1>Add Product</h1><br>
-</div>
+    <h1>Add Book</h1><br>
 <form action="product_edit.php" method="POST" id="add" enctype="multipart/form-data">
-      <table align="center" class="table table-hover center row-add" style="width:94%;">
+      <table align="center" class="table table-hover center row-add" style="width:98%;">
         <tr class="info">
+            <th class="text-center" >Author</th>
+            <th class="text-center" >Publisher</th>
             <th class="text-center" >Product</th>
             <th class="text-center" >Price</th>
             <th class="text-center" >%Discount</th>
             <th class="text-center" >Quantity</th>
-            <th class="text-center" >Tag</th>
+            <th class="text-center" >Category</th>
             <th class="text-center" >Description</th>
             <th class="text-center" >Image File</th>
         </tr>
         <tr>
-            <td class="text-center" style="width:20%;"><input id="in" type="text" class="text-left form-control" name="name" style="width:100%;"></td>
-            <td class="text-center" style="width:8%;"><input id="in" type="text" class="form-control" name="price" value="" style="width:100%;"></td>
-            <td class="text-center" style="width:8%;"><input id="in" type="text" class="form-control" name="discount" style="width:100%;"></td>
-            <td class="text-center" style="width:8%;"><input id="in" type="text" name="quantity" class="form-control" style="width:100%;"></td>
-            <td class="text-center" ><input id="in" type="text" class="form-control" name="tag" style="width:100%;"></td>
-            <td class="text-left" style="width:28%;"><textarea form="add" class="form-control" name="desc" style="width:100%;resize:vertical;"></textarea></td>
+            <td class="text-center" style="width:13%;">
+                <?php
+                  $q = 'SELECT * FROM author';
+                  $result = $mysqli->query($q);
+                ?>
+                <select class="form-control" from="add" name="author">
+                  <?php
+                  while($row = $result->fetch_array()){ ?>
+                      <option value="<?=$row['id']?>"><?=$row['name']?></option>
+                      <?php
+                  } ?>
+                </select>
+            </td>
+            <td class="text-center" style="width:13%;">
+                <?php
+                  $q = 'SELECT * FROM publisher';
+                  $result = $mysqli->query($q);
+                ?>
+                <select class="form-control" from="add" name="pub">
+                  <?php
+                  while($row = $result->fetch_array()){ ?>
+                      <option value="<?=$row['id']?>"><?=$row['name']?></option>
+                      <?php
+                  } ?>
+                </select>
+            </td>
+            <td class="text-center" style="width:18%;"><input id="in" type="text" maxlength="50" class="text-left form-control" name="name" style="width:100%;"></td>
+            <td class="text-center" style="width:6%;"><input id="in" type="text" class="form-control" name="price" value="" style="width:100%;"></td>
+            <td class="text-center" style="width:5%;"><input id="in" type="text" class="form-control" name="discount" style="width:100%;"></td>
+            <td class="text-center" style="width:5%;"><input id="in" type="text" name="quantity" class="form-control" style="width:100%;"></td>
+            <td class="text-center" style="width:10%;">
+                <?php
+                  $q = 'SELECT * FROM product_tag';
+                  $result = $mysqli->query($q);
+                ?>
+                <select class="form-control" from="add" name="tag">
+                  <?php
+                  while($row = $result->fetch_array()){ ?>
+                      <option value="<?=$row['id']?>"><?=$row['tag_name']?></option>
+                      <?php
+                  } ?>
+                </select>
+            </td>
+            <!-- <td class="text-center" ><input id="in" type="text" class="form-control" name="tag" style="width:100%;"></td> -->
+            <td class="text-left" style="width:12%;"><textarea form="add" maxlength="3500" class="form-control" name="desc" style="width:100%;resize:vertical;"></textarea></td>
             <td class="text-center" style="vertical-align:top;"><input type="file" name="image" style="width:100%;"></td>
         </tr>
 
@@ -144,6 +184,7 @@
           <input class="btn-default btn" style="margin-right:10px;display:inline-block;" type="submit" name="cancel" value="Cancel" formaction="product_list.php">
       </div>
 
+      <!-- ======================== Add product disabled until all fields are filled ==================== -->
       <script>
       (function() {
         $('#add #in').keyup(function() {
@@ -162,11 +203,140 @@
         });
       })()
     </script>
+    <!-- //////////////////////////////////// END script for disabled button ////////////////////////// -->
 </form>
-<!-- ======================== Add product disabled until all fields are filled ==================== -->
+</div>
 <br>
-<!-- //////////////////////////////////// END script for disabled button ////////////////////////// -->
 <!-- //////////////////////////////// END add product /////////////////////////////// -->
+
+<!-- ============================== add category =============================== -->
+<div class="text-center col-sm-4" style="display:inline-block">
+    <h1>Add Category</h1><br>
+
+<form action="product_edit.php" method="POST" id="addtag" enctype="multipart/form-data">
+      <table align="center" class="table table-hover center row-add" style="width:80%;">
+        <tr class="info">
+            <th class="text-center" >Category</th>
+        </tr>
+        <tr>
+          <td class="text-center" ><input id="cat" type="text" maxlength="20" class="form-control" name="tag" style="width:100%;"></td>
+        </tr>
+
+      </table>
+      <div class="text-center">
+          <input class="btn-primary btn" style="margin-right:10px;display:inline-block;" type="submit" name="add_tag" form="addtag" value="Add Category" id="registert" disabled="disabled">
+          <input class="btn-default btn" style="margin-right:10px;display:inline-block;" type="submit" name="cancel" value="Cancel" formaction="product_list.php">
+      </div>
+
+      <!-- ======================== Add category disabled until all fields are filled ==================== -->
+      <script>
+      (function() {
+        $('#addtag #cat').keyup(function() {
+          var empty = false;
+          $('#addtag #cat').each(function() {
+            if ($(this).val() == '') {
+              empty = true;
+            }
+          });
+
+          if (empty) {
+            $('#registert').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+          } else {
+            $('#registert').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+          }
+        });
+      })()
+    </script>
+    <!-- //////////////////////////////////// END script for disabled button ////////////////////////// -->
+</form>
+</div>
+<!-- //////////////////////////////// END add category /////////////////////////////// -->
+
+<!-- ============================== add author =============================== -->
+<div class="text-center col-sm-4" style="display:inline-block">
+    <h1>Add Author</h1><br>
+
+<form action="product_edit.php" method="POST" id="addau" enctype="multipart/form-data">
+      <table align="center" class="table table-hover center row-add" style="width:80%;">
+        <tr class="info">
+            <th class="text-center" >Author Name</th>
+        </tr>
+        <tr>
+          <td class="text-center" ><input id="au" type="text" maxlength="100" class="form-control" name="authorname" style="width:100%;"></td>
+        </tr>
+
+      </table>
+      <div class="text-center">
+          <input class="btn-primary btn" style="margin-right:10px;display:inline-block;" type="submit" name="add_author" form="addau" value="Add Author" id="registera" disabled="disabled">
+          <input class="btn-default btn" style="margin-right:10px;display:inline-block;" type="submit" name="cancel" value="Cancel" formaction="product_list.php">
+      </div>
+
+      <!-- ======================== Add author disabled until all fields are filled ==================== -->
+      <script>
+      (function() {
+        $('#addau #au').keyup(function() {
+          var empty = false;
+          $('#addau #au').each(function() {
+            if ($(this).val() == '') {
+              empty = true;
+            }
+          });
+
+          if (empty) {
+            $('#registera').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+          } else {
+            $('#registera').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+          }
+        });
+      })()
+    </script>
+    <!-- //////////////////////////////////// END script for disabled button ////////////////////////// -->
+</form>
+</div>
+<!-- //////////////////////////////// END add publisher /////////////////////////////// -->
+
+<div class="text-center col-sm-4" style="display:inline-block">
+    <h1>Add Publisher</h1><br>
+
+<form action="product_edit.php" method="POST" id="addpu" enctype="multipart/form-data">
+      <table align="center" class="table table-hover center row-add" style="width:80%;">
+        <tr class="info">
+            <th class="text-center" >Publisher Name</th>
+        </tr>
+        <tr>
+          <td class="text-center" ><input id="pu" type="text" maxlength="30" class="form-control" name="pubname" style="width:100%;"></td>
+        </tr>
+
+      </table>
+      <div class="text-center">
+          <input class="btn-primary btn" style="margin-right:10px;display:inline-block;" type="submit" name="add_pub" form="addpu" value="Add Publisher" id="registerp" disabled="disabled">
+          <input class="btn-default btn" style="margin-right:10px;display:inline-block;" type="submit" name="cancel" value="Cancel" formaction="product_list.php">
+      </div>
+
+      <!-- ======================== Add publisher disabled until all fields are filled ==================== -->
+      <script>
+      (function() {
+        $('#addpu #pu').keyup(function() {
+          var empty = false;
+          $('#addpu #pu').each(function() {
+            if ($(this).val() == '') {
+              empty = true;
+            }
+          });
+
+          if (empty) {
+            $('#registerp').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+          } else {
+            $('#registerp').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+          }
+        });
+      })()
+    </script>
+    <!-- //////////////////////////////////// END script for disabled button ////////////////////////// -->
+</form>
+<br><br>
+</div>
+<!-- //////////////////////////////// END add publisher /////////////////////////////// -->
 
 
 <!-- ========================================= product list ================================== -->
@@ -176,7 +346,7 @@
     $qc = 'SELECT * FROM product_delete ORDER BY delete_date ASC';
     $results = $mysqli->query($q);?>
     <div id="edit"  class="text-center">
-        <h1>Edit Products</h1>
+        <h1>Edit Books</h1>
     </div><?php
     if($check=$results->fetch_array()){
 ?>
@@ -190,7 +360,7 @@
                     <th class="text-center" >%Discount</th>
                     <th class="text-center" >Date added</th>
                     <th class="text-center" >Quantity</th>
-                    <th class="text-center" >Tag</th>
+                    <th class="text-center" >Category</th>
                     <th class="text-center" >Description</th>
                     <th class="text-center" >Image File</th>
                     <th></th>
@@ -348,7 +518,7 @@
     $qc = 'SELECT * FROM product_delete ORDER BY delete_date ASC';
     $results = $mysqli->query($q);?>
     <div id="edit"  class="text-center">
-        <h1>Deleted Products</h1>
+        <h1>Deleted Books</h1>
     </div><?php
     if($check=$results->fetch_array()){
 ?>
