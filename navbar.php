@@ -53,7 +53,7 @@ function show_navbar(){
       <ul class="nav navbar-nav ">
         <li>
           <span class="navbar-brand unselectable">
-            &nbsp;&nbsp;Bs Bookstore</a>
+            &nbsp;&nbsp;BS Bookstore</a>
           </span>
         </li>
         <li <?php  if($_SESSION['currentpage']=='main') {echo "class='active'";} ?>
@@ -87,6 +87,7 @@ function show_navbar(){
                       <a href="product_list.php">Manage Product</a>
                       <a href="user_list.php">Manage User</a>
                       <a href="order_list.php">Manage Order</a>
+                      <a href="statistics.php">Statistics</a>
                   <?php
                   }else if($_SESSION['usertype']==2){?>
                       <a href="account.php">Profile</a>
