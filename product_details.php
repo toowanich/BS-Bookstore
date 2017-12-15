@@ -58,6 +58,7 @@
   $quantity=$row['quantity'];
   $pdes=$row['description'];
   $img=$row['product_pic'];
+  $authorid=$row['author_id'];
 ?>
 <html lang="en">
 <head>
@@ -96,12 +97,15 @@
     }
 
     .panel{
-      border-color:#6B6A6A ;
-      border-width:1.5px;
+      background-color:transparent ;
+      /*border-width:1.5px;*/
+      border:none;
+      box-shadow:0 0 0 0 rgba(0,0,0,0);
     }
 
     .panel-footer{
-      background-color: #D7D7D7;
+      background-color: transparent;
+      border:none;
     }
 
     #spromotion,#npromotion{
@@ -137,6 +141,7 @@
 </head>
 <body>
 
+  <!-- ================================= START description ============================== -->
     <div class="container">
     <div class="row">
       <br><br><br><br>
@@ -217,26 +222,94 @@
         <?php } ?>
       <!-- //////////////////////////////////////////////////////////////////////////////// -->
 
-    <?php
-    if($row['quantity']<=0){
-    ?>
-      <br><span style="color:red;">Out of stock</span>
-    <?php
-  } else{
-    ?><br>
-      <form action="product_details.php?pid=<?=$pid?>" method="GET">
-          <input type="hidden" name="pid" value="<?=$pid?>">
-          <button class="glyphicon glyphicon-shopping-cart btn btn-outline-dark btn-sm" type="submit" name="addToCart" value="<?= $row['product_id']?>">
-                <span style="font-family:sans-serif;margin-left:-10px;">Add to cart</span></button>
-      </form>
-    <?php
-  }
-}
+        <?php
+        if($row['quantity']<=0){
+        ?>
+          <br><span style="color:red;">Out of stock</span>
+        <?php
+        }else{
+        ?><br>
+          <form action="product_details.php?pid=<?=$pid?>" method="GET">
+              <input type="hidden" name="pid" value="<?=$pid?>">
+              <button class="glyphicon glyphicon-shopping-cart btn btn-outline-dark btn-sm" type="submit" name="addToCart" value="<?= $row['product_id']?>">
+                    <span style="font-family:sans-serif;margin-left:-10px;">Add to cart</span></button>
+          </form>
+        <?php
+        }
+      }
   ?>
+
   </div>
-      <div class="col-sm-3 text-right"></div>
     </div>
+    <!-- ///////////////////////////// END description //////////////////////////// -->
+
+
+    <!-- =================== Start recommended product ============================== -->
+    <div class="row">
+      <br>
+      <div class="col-sm-1"></div>
+      <!-- Also Recommend -->
+      <h3 style="display:inline-block;">Also Recommend</h3><br>
+      <div class="col-sm-1"></div>
+      <div class="row">
+        <?php
+          // $loopNo = 0;
+          // $rowcount = 0;
+          $qrs = "SELECT * FROM product WHERE product_tag = '".$tag."' AND product_name != '".$pname."' ORDER BY quantity DESC LIMIT 5";
+          $resulto = $mysqli->query($qrs);
+          $numrow = $resulto->num_rows;
+          while($row=$resulto->fetch_array()){ ?>
+              <div class="col-sm-2">
+                  <div class="panel panel-primary text-center">
+                      <div class="panel-body" style="height:120px;">
+                        <form id="detail_form<?=$row['product_id']?>" target="_blank" action="product_details.php" method="get">
+                          <input type="hidden" name="pid" value="<?= $row['product_id']?>">
+                        </form>
+                        <a href="javascript:{}" onclick="document.getElementById('detail_form<?=$row['product_id']?>').submit(); return false;">
+                        <img id="promotion" src="img/<?= $row['product_pic']?>" class="img-responsive center-block" style="height:100px;" alt="<?= $row['product_name']?>">
+                      </a>
+                      </div>
+                      <div class="panel-footer">
+                        <a href="javascript:{}" style="color:black;" onclick="document.getElementById('detail_form<?=$row['product_id']?>').submit(); return false;"><?= $row['product_name']?></a>
+                      </div>
+                  </div>
+              </div>
+              <?php
+          }
+
+        if($numrow < 5){
+          $limit = 5-$numrow;
+          $qrs = 'SELECT * FROM product WHERE author_id = '.$authorid.' AND product_tag NOT IN (SELECT product_tag FROM product WHERE product_tag = "'.$tag.'")
+                ORDER BY quantity DESC LIMIT '.$limit;
+          $resulto = $mysqli->query($qrs);
+          while($row=$resulto->fetch_array()){ ?>
+              <div class="col-sm-2">
+                  <div class="panel panel-primary text-center">
+                      <div class="panel-body" style="height:120px;">
+                        <form id="detail_form<?=$row['product_id']?>" target="_blank" action="product_details.php" method="get">
+                          <input type="hidden" name="pid" value="<?= $row['product_id']?>">
+                        </form>
+                        <a href="javascript:{}" onclick="document.getElementById('detail_form<?=$row['product_id']?>').submit(); return false;">
+                        <img id="promotion" src="img/<?= $row['product_pic']?>" class="img-responsive center-block" style="height:100px;" alt="<?= $row['product_name']?>">
+                      </a>
+                      </div>
+                      <div class="panel-footer">
+                        <a href="javascript:{}" style="color:black;" onclick="document.getElementById('detail_form<?=$row['product_id']?>').submit(); return false;"><?= $row['product_name']?></a>
+                      </div>
+                  </div>
+              </div>
+              <?php
+          }
+        }
+
+      ?>
+    </div>
+    <!-- //////////////////// END recommend //////////////////////////// -->
+
   </div>
-  <br>
+</div>
+
+
+<br><br><br><br><br>
 </body>
 </html>
