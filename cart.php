@@ -154,8 +154,10 @@ require_once('connect.php');
                                           <img src="img/<?= $row['product_pic'] ?>" style="height:60px;">
                                       </td>
                                       <td class="text-left" style="vertical-align:middle;">
-                                        <?php echo $row['product_name']; ?>
-                                    </td>
+                                        <a href="product_details.php?pid=<?=$pid?>">
+                                          <?php echo $row['product_name']; ?>
+                                        </a>
+                                      </td>
                                       <td class="text-center" style="width:5%;vertical-align:middle;">
                                         <input class="text-center" type="number" style="width: 50px;" min="1" max="<?= $row['quantity']; ?>" name="quantity[<?= $row['product_id'] ?>]" value="<?= $_SESSION['cart'][$row['product_id']]['quantity'] ?>">
                                       </td>
