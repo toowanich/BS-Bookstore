@@ -1,39 +1,14 @@
-Admin
-- Manage promotion***********************************DONE*******************
-- Add price,Pic,modify products**********************DONE*******************
-- Manage user****************************************DONE*******************
-- Update order order_status**************************DONE*******************
+ER Diagram
+- add wishlist
+- add product_delete
+- change product_tag to book_categories
+- change user to Book to Product or Product to Book
 
-Products
-- Product description page
-- product page number (Prev 1 2 3 4 Next)************DONE********************
-
-Cart*************************************************DONE********************
-- Calculate price************************************DONE********************
-- Delivery method************************************DONE********************
-- Show small pic*************************************DONE********************
-- decrease Quantity**********************************DONE********************
-
-Search
-- From Name,Detail***********************************DONE********************
-
-Filter
-- Price range
-
-User Account
-- History********************************************DONE********************
-- Profile********************************************DONE********************
-- Manage account*************************************DONE********************
-- Manage order***************************************DONE********************
-- payment proof**************************************DONE********************
-- Cancel order***************************************DONE********************
-- Address (?)
-
-Home*************************************************DONE********************
-- Preorder*******************************************DONE********************
-- Kickstarter****************************************DONE********************
-
-Login************************************************DONE********************
-- incorrect page*************************************DONE********************
-- create account page********************************DONE********************
-- log Out********************************************DONE********************
+Database
+- add table Author
+- add table Publisher
+- add to product : author_id
+- add to product : publisher_id
+- add to product : add language
+- add to product : number_sold
+- add to user : birthdate (optional)

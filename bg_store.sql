@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2017 at 11:59 AM
+-- Generation Time: Dec 15, 2017 at 12:14 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -321,21 +321,6 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_t
 (28, 'Masmorra : Dungeon of Arcadia', '3800.00', 'Thematic, RPG', 6, 'masmorra.png', 0, '2017-11-25 02:58:12', 'Masmorra: Dungeons of Arcadia is a fast-paced, dice-driven dungeon crawl board game set in the Arcadia Quest universe where players control Heroes that explore three levels of a dungeon filled with monsters, traps and treasure! Bosses, special rooms and countless surprises await the Heroes, but only one can be the first to reach the final level and become the undisputed champion of the Realm!  In Masmorra, players get to roll and re-roll a pool of Dice that guides their actions for their turn, and a unique dungeon is created as players lay down tiles while exploring it and fighting off monsters that are presented by special dice! But Heroes must also be aware of opponent Heroes, as they\'ll be able to use cards to disrupt their carefully laid-out plans!'),
 (29, 'Pandemic', '1600.00', 'Cooperation', 17, 'pandemic.png', 0, '2017-11-26 02:33:49', 'In Pandemic, several virulent diseases have broken out simultaneously all over the world! The players are disease-fighting specialists whose mission is to treat disease hotspots while researching cures for each of four plagues before they get out of hand.  The game board depicts several major population centers on Earth. On each turn, a player can use up to four actions to travel between cities, treat infected populaces, discover a cure, or build a research station. A deck of cards provides the players with these abilities, but sprinkled throughout this deck are Epidemic! cards that accelerate and intensify the diseases\' activity. A second, separate deck of cards controls the \"normal\" spread of the infections.');
 
---
--- Triggers `product`
---
-DELIMITER $$
-CREATE TRIGGER `onproductdelete` BEFORE DELETE ON `product` FOR EACH ROW BEGIN
-
-INSERT INTO product_history(product_id,action,description,action_date)
-VALUES(old.product_id,"DELETE",CONCAT("DELETE ",old.product_name), NOW());
-
-INSERT INTO product_delete(delete_date,product_id,product_name,product_price,product_tag,quantity,product_pic,product_discount) VALUES(NOW(),old.product_id,old.product_name,old.product_price,old.product_tag,old.quantity,old.product_pic,old.product_discount);
-
-END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -361,42 +346,6 @@ CREATE TABLE `product_delete` (
 INSERT INTO `product_delete` (`id`, `product_id`, `product_name`, `product_price`, `product_tag`, `quantity`, `product_pic`, `product_discount`, `delete_date`) VALUES
 (2, 31, 'aaaaaaaaaa', '50.00', 'Bluff', 2, 'aaaaaaaaaapayment-receipt.jpg', 0, '2017-11-29 01:43:50'),
 (3, 32, 'g', '100.00', 'g', 123, 'g45noimg.png', 10, '2017-11-29 02:17:45');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `product_history`
---
-
-CREATE TABLE `product_history` (
-  `id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `action` varchar(8) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  `action_date` datetime NOT NULL,
-  `by_user` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `product_history`
---
-
-INSERT INTO `product_history` (`id`, `product_id`, `action`, `description`, `action_date`, `by_user`) VALUES
-(7, 13, 'DELETE', 'DELETE Century Spice Road', '2017-11-20 23:39:21', 1),
-(8, 12, 'DELETE', 'DELETE T.I.M.E. Stories', '2017-11-21 01:48:13', 0),
-(9, 12, 'DELETE', 'DELETE ', '2017-11-22 01:48:01', 0),
-(10, 12, 'DELETE', 'DELETE product_delete.product_name', '2017-11-22 15:31:19', 0),
-(11, 15, 'DELETE', 'DELETE T.I.M.E. Stories', '2017-11-22 15:34:27', 0),
-(12, 16, 'DELETE', 'DELETE T.I.M.E. Stories', '2017-11-22 15:34:44', 0),
-(13, 17, 'DELETE', 'DELETE T.I.M.E. Stories', '2017-11-22 15:35:31', 0),
-(14, 14, 'DELETE', 'DELETE T.I.M.E. Stories', '2017-11-22 15:39:57', 0),
-(15, 18, 'DELETE', 'DELETE T.I.M.E. Stories', '2017-11-22 15:40:35', 0),
-(16, 19, 'DELETE', 'DELETE T.I.M.E. Stories', '2017-11-23 09:19:29', 0),
-(17, 1, 'DELETE', 'DELETE Avalon (ENG)', '2017-11-26 02:03:02', 0),
-(18, 30, 'DELETE', 'DELETE Pandemic', '2017-11-26 02:32:23', 0),
-(19, 29, 'DELETE', 'DELETE Pandemic', '2017-11-29 00:12:24', 0),
-(20, 31, 'DELETE', 'DELETE aaaaaaaaaa', '2017-11-29 01:43:50', 0),
-(21, 32, 'DELETE', 'DELETE g', '2017-11-29 02:17:45', 0);
 
 -- --------------------------------------------------------
 
@@ -474,18 +423,6 @@ INSERT INTO `user` (`USER_ID`, `USER_NAME`, `USER_PASSWORD`, `USER_TYPE`, `USER_
 (10, 'g', 'g', 2, 'g', 'g', 'g@g.g', '2017-11-29 01:52:29', 0, '0.jpg'),
 (11, '2', '2', 2, '2', '2', '2@2.2', '2017-11-29 02:08:17', 0, '0.jpg');
 
---
--- Triggers `user`
---
-DELIMITER $$
-CREATE TRIGGER `onuserdelete` BEFORE DELETE ON `user` FOR EACH ROW BEGIN
-
-INSERT INTO user_delete(user_id,user_name,user_password,user_type,user_fname,user_lname,user_email,user_registerdate,delete_date) VALUES(old.USER_ID,old.USER_NAME,old.USER_PASSWORD,old.USER_TYPE,old.USER_FNAME,old.USER_LNAME,old.USER_EMAIL,old.register_date,NOW());
-
-END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -504,36 +441,6 @@ CREATE TABLE `usertype` (
 INSERT INTO `usertype` (`TYPE_ID`, `TYPE_NAME`) VALUES
 (1, 'Admin'),
 (2, 'Member');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_delete`
---
-
-CREATE TABLE `user_delete` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `user_name` varchar(20) NOT NULL,
-  `user_password` varchar(20) NOT NULL,
-  `user_type` int(11) NOT NULL,
-  `user_fname` varchar(40) NOT NULL,
-  `user_lname` varchar(40) NOT NULL,
-  `user_email` varchar(50) NOT NULL,
-  `user_registerdate` datetime NOT NULL,
-  `delete_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_delete`
---
-
-INSERT INTO `user_delete` (`id`, `user_id`, `user_name`, `user_password`, `user_type`, `user_fname`, `user_lname`, `user_email`, `user_registerdate`, `delete_date`) VALUES
-(1, 9, 'ab', 'aa', 2, 'ab', 'ab', 'a@a.com', '2017-11-23 20:30:08', '2017-11-23 20:30:51'),
-(2, 10, 'ab', 'aa', 2, 'ab', 'aba', 'a@a.com', '2017-11-23 20:32:02', '2017-11-23 21:54:34'),
-(3, 11, 'ab', 'aa', 2, 'aaa', 'l', 'k@mai.com', '2017-11-23 20:34:28', '2017-11-23 21:54:34'),
-(4, 12, 'ab', 'a', 2, 'aaa', 'l', 'k@mai.com', '2017-11-23 20:34:56', '2017-11-23 21:54:34'),
-(5, 13, 'ab', 'aa', 2, 'aaa', 'l', 'k@mai.com', '2017-11-23 20:35:47', '2017-11-23 21:54:34');
 
 -- --------------------------------------------------------
 
@@ -599,12 +506,6 @@ ALTER TABLE `product_delete`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `product_history`
---
-ALTER TABLE `product_history`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `product_tag`
 --
 ALTER TABLE `product_tag`
@@ -621,12 +522,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `usertype`
   ADD PRIMARY KEY (`TYPE_ID`);
-
---
--- Indexes for table `user_delete`
---
-ALTER TABLE `user_delete`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -657,12 +552,6 @@ ALTER TABLE `product_delete`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `product_history`
---
-ALTER TABLE `product_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
 -- AUTO_INCREMENT for table `product_tag`
 --
 ALTER TABLE `product_tag`
@@ -679,12 +568,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `usertype`
   MODIFY `TYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `user_delete`
---
-ALTER TABLE `user_delete`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
