@@ -72,7 +72,8 @@
         $update = $mysqli->query($qr);
         $qr = "UPDATE product SET product_pic = '".$_POST['pic']."' WHERE product_id =".$_POST['id'].";";
         $update = $mysqli->query($qr);
-        $qr = "UPDATE product SET description = '".$_POST['desc']."' WHERE product_id =".$_POST['id'].";";
+        $desc = $mysqli->real_escape_string($_POST['desc']);
+        $qr = "UPDATE product SET description = '".$desc."' WHERE product_id =".$_POST['id'].";";
         $update = $mysqli->query($qr);
         header("Location:product_list.php#edit");
     }
