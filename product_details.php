@@ -255,7 +255,7 @@
         <?php
           // $loopNo = 0;
           // $rowcount = 0;
-          $qrs = "SELECT * FROM product WHERE product_tag = '".$tag."' AND product_name != '".$pname."' ORDER BY quantity DESC LIMIT 5";
+          $qrs = "SELECT * FROM product WHERE product_tag = '".$tag."' AND product_name != '".$mysqli->real_escape_string($pname)."' ORDER BY quantity DESC LIMIT 5";
           $resulto = $mysqli->query($qrs);
           $numrow = $resulto->num_rows;
           while($row=$resulto->fetch_array()){ ?>
