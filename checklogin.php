@@ -37,7 +37,7 @@
         else {
 					$_SESSION['logstat']="Log Out";
           if($_SESSION['lastpage']=="cart.php" || $_SESSION['lastpage']=="account.php" || $_SESSION['lastpage']=='user_list.php'){
-            $_SESSION['lastpage']="main.php";
+            $_SESSION['lastpage']="index.php";
           }
           header("Location:".$_SESSION['lastpage']);
         }
@@ -58,7 +58,7 @@
 		$_SESSION['cart']=NULL;
 		$_SESSION['cartquantity']=0;
     if($_SESSION['lastpage']=="cart.php" || $_SESSION['currentpage']='account'){
-      $_SESSION['lastpage']="main.php";
+      $_SESSION['lastpage']="index.php";
     }
 		$_SESSION['logout']=0;
 		$_SESSION['disable']='0';

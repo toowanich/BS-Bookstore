@@ -57,7 +57,7 @@ function show_navbar(){
           </span>
         </li>
         <li <?php  if($_SESSION['currentpage']=='main') {echo "class='active'";} ?>
-          ><a href="main.php">Home</a></li>
+          ><a href="index.php">Home</a></li>
         <li <?php if($_SESSION['currentpage']=='product') {echo "class='active'";} ?>
           ><a href="product.php">Products</a></li>
         <li <?php if($_SESSION['currentpage']=='contact') {echo "class='active'";} ?>

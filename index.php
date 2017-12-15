@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
   session_start();
-  $_SESSION['lastpage']="main.php";
+  $_SESSION['lastpage']="index.php";
   $_SESSION['currentpage']='main';
   require_once("connect.php");
   require_once("navbar.php");
@@ -193,7 +193,7 @@
                                   $contain = true;
                               }
                           }?>
-                          <form action="main.php#npromotion" method="POST" style="display:inline-block;">
+                          <form action="index.php#npromotion" method="POST" style="display:inline-block;">
                             <span style="position:absolute;right:3.5%;top:25%;">
                             <?php
                             if($contain){ //---------------- product already in wishlist ?>
@@ -255,7 +255,7 @@
                            <span style="right:8%;bottom:11%;position:absolute;color:red">Out of stock</span>
                            <?php
                          }else{ ?>
-                             <form action="main.php#npromotion" method="POST">
+                             <form action="index.php#npromotion" method="POST">
                                   <!-- //- send check variable to show items in cart -// -->
                                   <input type="hidden" name="checkcart" value="first">
                                   <span style="right:8%;bottom:9.5%;position:absolute;">
@@ -333,7 +333,7 @@
                                   $contain = true;
                               }
                           }?>
-                          <form action="main.php#spromotion" method="POST" style="display:inline-block;">
+                          <form action="index.php#spromotion" method="POST" style="display:inline-block;">
                             <span style="position:absolute;right:3.5%;top:25%;">
                             <?php
                             if($contain){ //---------------- product already in wishlist ?>
@@ -388,7 +388,7 @@
                            <span style="right:8%;bottom:12%;position:absolute;color:red">Out of stock</span>
                            <?php
                          }else{ ?>
-                             <form action="main.php#spromotion" method="POST">
+                             <form action="index.php#spromotion" method="POST">
                                   <!-- //- send check variable to show items in cart -// -->
                                   <input type="hidden" name="checkcart" value="first">
                                   <span style="right:8%;bottom:11%;position:absolute;">

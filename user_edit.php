@@ -65,7 +65,7 @@
         }
         header("Location:user_list.php#edit");
     }else{
-        header("Location:main.php");
+        header("Location:index.php");
     }
 
 ?>
