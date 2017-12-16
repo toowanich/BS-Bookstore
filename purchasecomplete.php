@@ -6,7 +6,7 @@ $_SESSION['cartquantity'] = 0;
 ?>
 <html lang="en">
 <head>
-  <title>BG Store - Purchase completed</title>
+  <title>BS Bookstore - Purchase completed</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">

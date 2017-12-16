@@ -4,7 +4,7 @@
  ?>
 <html lang="en">
 <head>
-  <title>BG Store - Forgot Password</title>
+  <title>BS Bookstore - Forgot Password</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
