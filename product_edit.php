@@ -10,8 +10,7 @@
         // $ppic = $_POST['img'];
         $pdiscount = $_POST['discount'];
         $desc = $_POST['desc'];
-        $authorid=$_POST['author'];
-        $pubid=$_POST['pub'];
+
         echo '1<br>';
 
         $q = 'SELECT product_name from product';
@@ -27,10 +26,8 @@
             header("Location:product_list.php");
         }else{
           echo '2<br>';
-            $q = 'INSERT INTO product(product_name,product_price,product_tag,quantity,product_discount,add_date,description,author_id,publisher_id)
-                  VALUES("'.$pname.'","'.$pprice.'","'.$ptag.'","'.$pqty.'","'.$pdiscount.'",NOW(),"'.$desc.'","'.$authorid.'","'.$pubid.'")';
-            // $q = "INSERT INTO product(product_name,product_price,product_tag,quantity,product_discount,add_date,description,author_id,publisher_id)
-            //       VALUES($pname, $pprice, $ptag, $pqty, $pdiscount, NOW(), $desc, authorid
+            $q = 'INSERT INTO product(product_name,product_price,product_tag,quantity,product_discount,add_date,description)
+                  VALUES("'.$pname.'","'.$pprice.'","'.$ptag.'","'.$pqty.'","'.$pdiscount.'",NOW(),"'.$desc.'")';
             $result = $mysqli->query($q);
             $addtag = explode(', ',$ptag);
             for($i = 0; $i < count($addtag); $i++){
@@ -57,10 +54,20 @@
             echo "12Copy/Upload Complete<br>";
           }
         // }
-
             header("Location:product_list.php");
         }
-
+    }
+    //======================= add author ============================
+    else if($_SESSION['usertype']==1 && isset($_POST['add_author'])){
+        $q = 'INSERT INTO author(name) VALUES("'.$_POST['authorname'].'");';
+        $result = $mysqli->query($q);
+        header("Location:product_list.php");
+    }
+    //======================= add publisher ============================
+    else if($_SESSION['usertype']==1 && isset($_POST['add_pub'])){
+        $q = 'INSERT INTO publisher(name) VALUES("'.$_POST['pubname'].'");';
+        $result = $mysqli->query($q);
+        header("Location:product_list.php");
     }
     else if($_SESSION['usertype']==1 && isset($_POST['update'])){
         $qr = "UPDATE product SET product_name = '".$_POST['name']."' WHERE product_id =".$_POST['id'].";";
@@ -75,7 +82,12 @@
         $update = $mysqli->query($qr);
         $qr = "UPDATE product SET product_pic = '".$_POST['pic']."' WHERE product_id =".$_POST['id'].";";
         $update = $mysqli->query($qr);
-        $qr = "UPDATE product SET description = '".$_POST['desc']."' WHERE product_id =".$_POST['id'].";";
+        $desc = $mysqli->real_escape_string($_POST['desc']);
+        $qr = "UPDATE product SET description = '".$desc."' WHERE product_id =".$_POST['id'].";";
+        $update = $mysqli->query($qr);
+        $qr = "UPDATE product SET author_id = '".$_POST['author']."' WHERE product_id =".$_POST['id'].";";
+        $update = $mysqli->query($qr);
+        $qr = "UPDATE product SET publisher_id = '".$_POST['pub']."' WHERE product_id =".$_POST['id'].";";
         $update = $mysqli->query($qr);
         header("Location:product_list.php#edit");
     }
@@ -95,14 +107,19 @@
         $result = $mysqli->query($qr);
         while($row=$result->fetch_array()){
             if($row['id']==$_POST['retreive']){
-                $q = 'INSERT INTO product(product_name,product_price,product_tag,quantity,product_pic,product_discount,add_date)
-                      VALUES("'.$row['product_name'].'"
-                      ,"'.$row['product_price'].'"
+                $pname = $mysqli->real_escape_string($row['product_name']);
+                $desc = $mysqli->real_escape_string($row['description']);
+                $q = 'INSERT INTO product(product_name,product_price,product_tag,quantity,product_pic,product_discount,add_date,author_id,publisher_id,description)
+                      VALUES("'.$pname.'"
+                      ,'.$row['product_price'].'
                       ,"'.$row['product_tag'].'"
-                      ,"'.$row['quantity'].'"
+                      ,'.$row['quantity'].'
                       ,"'.$row['product_pic'].'"
-                      ,"0"
-                      ,NOW());';
+                      ,0
+                      ,NOW()
+                      ,'.$row['author_id'].'
+                      ,'.$row['publisher_id'].'
+                      ,"'.$desc.'");';
                 $result=$mysqli->query($q);
                 $q = "DELETE FROM product_delete WHERE id = ".$_POST['retreive'].";";
                 $result=$mysqli->query($q);

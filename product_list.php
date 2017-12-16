@@ -168,7 +168,7 @@
                 <select class="form-control" from="add" name="tag">
                   <?php
                   while($row = $result->fetch_array()){ ?>
-                      <option value="<?=$row['tag_name']?>"><?=$row['tag_name']?></option>
+                      <option value="<?=$row['id']?>"><?=$row['tag_name']?></option>
                       <?php
                   } ?>
                 </select>
@@ -350,7 +350,7 @@
     <div id="edit"  class="text-center">
         <h1>Edit Books</h1>
     </div><?php
-    if($results){
+    if($check=$results->fetch_array()){
 ?>
         <br>
         <form id="myform" action="product_edit.php" method="POST">
