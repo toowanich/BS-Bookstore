@@ -191,6 +191,7 @@ require_once('connect.php');
       <input type="hidden" name="tp" value="<?php echo $totalprice; ?>">
 		  <input type="submit" class="btn btn-success" name="confirm" value="Confirm purchase">
       <a href="cart.php" class="btn btn-default">Cancel</a>
+      <br><br>
 		</form><?php }
     else if ($quantitycheck==false) {
       ?>
@@ -201,7 +202,7 @@ require_once('connect.php');
 
   </div>
 </div>
-<br><br>
+
 <!--
 <footer class="container-fluid text-center">
   <p>BG Store</p>
