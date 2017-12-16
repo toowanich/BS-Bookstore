@@ -59,7 +59,7 @@
 
 <html lang="en">
 <head>
-  <title>BG Store - Home</title>
+  <title>BS Bookstore - Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
@@ -418,7 +418,7 @@
 <br><br>
 <!-- =============================== footer ======================================= -->
 <!-- <footer class="container-fluid text-center">
-  <p>BG Store</p>
+  <p>BS Bookstore</p>
 </footer> -->
 <!-- ////////////////////////////////////////////////////////////////////////////// -->
 

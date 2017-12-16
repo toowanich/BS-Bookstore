@@ -7,7 +7,7 @@
   ?>
 <html lang="en">
 <head>
-  <title>BG Store - Statistics</title>
+  <title>BS Bookstore - Statistics</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" -->
@@ -125,7 +125,7 @@ function drawCrosshairs() {
           $q = $q.' Group by order_date';
           $result = $mysqli->query($q);
           if($result->num_rows == 0){
-            $q = 'SELECT order_date as o, count(*) as c FROM orderheader,orderdetail WHERE orderheader.order_id = orderdetail.order_id Group by order_date';
+            $q = 'SELECT order_date as o, count(*) as c FROM orderheader,orderdetail Group by order_date';
             $result = $mysqli->query($q);
             $trigger = 1;
           }
