@@ -53,7 +53,7 @@
 
 <html lang="en">
 <head>
-  <title>BS Bookstore - Promotion</title>
+  <title>BG Store - Promotion</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
@@ -336,7 +336,7 @@
 <br><br>
 <!-- =============================== footer ======================================= -->
 <!-- <footer class="container-fluid text-center">
-  <p>BS Bookstore</p>
+  <p>BG Store</p>
 </footer> -->
 <!-- ////////////////////////////////////////////////////////////////////////////// -->
 

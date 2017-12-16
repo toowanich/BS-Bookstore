@@ -5,7 +5,7 @@ require_once('connect.php');
 ?>
 <html lang="en">
 <head>
-  <title>BS Bookstore - Checkout</title>
+  <title>BG Store - Checkout</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
@@ -204,7 +204,7 @@ require_once('connect.php');
 <br><br>
 <!--
 <footer class="container-fluid text-center">
-  <p>BS Bookstore</p>
+  <p>BG Store</p>
 </footer>
 -->
 </body>

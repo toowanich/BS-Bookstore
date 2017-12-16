@@ -6,7 +6,7 @@
   ?>
 <html lang="en">
 <head>
-  <title>BS Bookstore - Contact</title>
+  <title>BG Store - Contact</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
@@ -58,8 +58,8 @@
   <?php show_navbar(); ?>
 </nav>
   <!-- /////////////////////////////////////////////////////////////////////////// -->
-  <!-- <h3>BS Bookstore</h3>
-  <p><b>Tel:</b> 081-2345678<br><b>Facebook Page:</b> BS Bookstore<br><b>Line ID:</b> BGStore</p> -->
+  <!-- <h3>BG Store</h3>
+  <p><b>Tel:</b> 081-2345678<br><b>Facebook Page:</b> BG Store<br><b>Line ID:</b> BGStore</p> -->
 
   <div class="container">
     <div class="row">
