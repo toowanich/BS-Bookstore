@@ -7,7 +7,7 @@ require_once('connect.php');
 
 <html lang="en">
 <head>
-  <title>BS Bookstore - Account</title>
+  <title>BG Store - Account</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">

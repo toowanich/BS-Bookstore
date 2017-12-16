@@ -17,7 +17,7 @@ if(isset($_POST['detail'])){
 
 <html lang="en">
 <head>
-  <title>BS Bookstore - User List</title>
+  <title>BG Store - User List</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
@@ -163,8 +163,8 @@ if(isset($_POST['detail'])){
       <br>
   </div>
 <!-- <div style="margin-left:4%;margin-top:3%;">
-  <h3>BS Bookstore</h3>
-  <p>Tel: 081-2345678<br>Facebook Page: BS Bookstore: Board Game Cafe<br>Line ID: BGStore</p>
+  <h3>BG Store</h3>
+  <p>Tel: 081-2345678<br>Facebook Page: BG Store: Board Game Cafe<br>Line ID: BGStore</p>
 </div> -->
 </body>
 </html>
