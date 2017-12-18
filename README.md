@@ -1,3 +1,5 @@
 # Database-lec-project
 Bookstore database / Website
-Based on a previous work
+
+- Website is styled using Bootstrap 3.
+- Backend is phpMyAdmin and Apache
